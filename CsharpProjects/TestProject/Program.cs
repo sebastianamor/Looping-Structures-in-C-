@@ -11,6 +11,9 @@ int maxPets = 8;
 string? readResult;
 string menuSelection = "";
 
+// array used to store runtime data, there is no persisted data
+string[,] ourAnimals = new string[maxPets, 6];
+
 switch (i)
 {
     case 0:
@@ -22,7 +25,7 @@ switch (i)
         animalNickname = "lola";
         break;
 
-case 1:
+    case 1:
     animalSpecies = "dog";
     animalID = "d2";
     animalAge = "9";
