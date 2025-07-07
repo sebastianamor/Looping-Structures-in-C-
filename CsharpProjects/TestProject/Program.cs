@@ -13,7 +13,7 @@ string[,] ourAnimals = new string[maxPets, 6];
 
 do
 {
-    Console.WriteLine("\nSeleccione una opción:");
+    Console.WriteLine($"You selected menu option {menuSelection}.");
     Console.WriteLine("1. Ver/Editar animal");
     Console.WriteLine("2. Salir");
     menuSelection = Console.ReadLine();
