@@ -1,84 +1,82 @@
-﻿string animalSpecies = "";
-string animalID = "";
-string animalAge = "";
-string animalPhysicalDescription = "";
-string animalPersonalityDescription = "";
-string animalNickname = "";
-
+﻿string[,] ourAnimals = new string[8, 6]; // 8 mascotas, 6 atributos cada una
 int maxPets = 8;
-string? readResult;
 string menuSelection = "";
-int i = 0; // Variable añadida
-string[,] ourAnimals = new string[maxPets, 6];
+
+// Inicialización de datos de ejemplo (opcional)
+for (int i = 0; i < 4; i++) // Solo inicializamos 4 mascotas como en tu ejemplo
+{
+    ourAnimals[i, 0] = "Perro"; // Especie
+    ourAnimals[i, 1] = $"ID{i}"; // ID
+    ourAnimals[i, 2] = $"{i+1} años"; // Edad
+    ourAnimals[i, 3] = "Descripción física"; // Desc. física
+    ourAnimals[i, 4] = "Descripción personalidad"; // Desc. personalidad
+    ourAnimals[i, 5] = $"Mascota{i}"; // Apodo
+}
 
 do
 {
-    Console.WriteLine($"You selected menu option {menuSelection}.");
+    Console.WriteLine("\nMenú Principal:");
     Console.WriteLine("1. Ver/Editar animal");
     Console.WriteLine("2. Salir");
-    menuSelection = Console.ReadLine();
+    Console.Write("Seleccione una opción: ");
+    
+    menuSelection = Console.ReadLine()?.Trim().ToLower(); // Normalizar entrada
 
-    if (menuSelection == "1")
+    switch (menuSelection)
     {
-        Console.WriteLine("Ingrese número de animal (0-3):");
-        if (int.TryParse(Console.ReadLine(), out i) && i >= 0 && i <= 3)
-        {
-            switch (i)
+        case "1":
+            Console.Write("Ingrese número de animal (0-3): ");
+            if (int.TryParse(Console.ReadLine(), out int petNumber) && petNumber >= 0 && petNumber <= 3)
             {
-                case 0:
-                    animalSpecies = "dog";
-                    animalID = "d1";
-                    animalAge = "2";
-                    animalPhysicalDescription = "medium sized cream colored female golden retriever weighing about 65 pounds. housebroken.";
-                    animalPersonalityDescription = "loves to have her belly rubbed and likes to chase her tail. gives lots of kisses.";
-                    animalNickname = "lola";
-                    break;
-
-                case 1:
-                    animalSpecies = "dog";
-                    animalID = "d2";
-                    animalAge = "9";
-                    animalPhysicalDescription = "large reddish-brown male golden retriever weighing about 85 pounds. housebroken.";
-                    animalPersonalityDescription = "loves to have his ears rubbed when he greets you at the door, or at any time! loves to lean-in and give doggy hugs.";
-                    animalNickname = "loki";
-                    break;
-
-                case 2:
-                    animalSpecies = "cat";
-                    animalID = "c3";
-                    animalAge = "1";
-                    animalPhysicalDescription = "small white female weighing about 8 pounds. litter box trained.";
-                    animalPersonalityDescription = "friendly";
-                    animalNickname = "Puss";
-                    break;
-
-                case 3:
-                    animalSpecies = "cat";
-                    animalID = "c4";
-                    animalAge = "?";
-                    animalPhysicalDescription = "";
-                    animalPersonalityDescription = "";
-                    animalNickname = "";
-                    break;
+                Console.WriteLine($"\nDatos del animal {petNumber}:");
+                Console.WriteLine($"1. Especie: {ourAnimals[petNumber, 0]}");
+                Console.WriteLine($"2. ID: {ourAnimals[petNumber, 1]}");
+                Console.WriteLine($"3. Edad: {ourAnimals[petNumber, 2]}");
+                Console.WriteLine($"4. Descripción física: {ourAnimals[petNumber, 3]}");
+                Console.WriteLine($"5. Descripción personalidad: {ourAnimals[petNumber, 4]}");
+                Console.WriteLine($"6. Apodo: {ourAnimals[petNumber, 5]}");
+                
+                Console.Write("\n¿Qué campo desea editar? (1-6 o Enter para cancelar): ");
+                string fieldToEdit = Console.ReadLine();
+                
+                if (!string.IsNullOrEmpty(fieldToEdit) && int.TryParse(fieldToEdit, out int fieldNumber) 
+                    && fieldNumber >= 1 && fieldNumber <= 6)
+                {
+                    Console.Write($"Ingrese nuevo valor para {GetFieldName(fieldNumber)}: ");
+                    string newValue = Console.ReadLine();
+                    ourAnimals[petNumber, fieldNumber - 1] = newValue;
+                    Console.WriteLine("¡Cambio guardado!");
+                }
             }
-
-            // Guardar en array
-            ourAnimals[i, 0] = animalSpecies;
-            ourAnimals[i, 1] = animalID;
-            ourAnimals[i, 2] = animalAge;
-            ourAnimals[i, 3] = animalPhysicalDescription;
-            ourAnimals[i, 4] = animalPersonalityDescription;
-            ourAnimals[i, 5] = animalNickname;
-
-            // Mostrar datos
-            Console.WriteLine($"\nAnimal {i}:");
-            Console.WriteLine($"Especie: {animalSpecies}");
-            Console.WriteLine($"Apodo: {animalNickname}");
-        }
-        else
-        {
-            Console.WriteLine("Número de animal inválido");
-        }
+            else
+            {
+                Console.WriteLine("Número de animal inválido. Debe ser entre 0 y 3.");
+            }
+            break;
+            
+        case "2":
+        case "exit":
+            Console.WriteLine("Saliendo del programa...");
+            break;
+            
+        default:
+            Console.WriteLine("Opción no válida. Por favor seleccione 1 o 2.");
+            break;
     }
-
+    
 } while (menuSelection != "2" && menuSelection != "exit");
+
+// Función auxiliar para nombres de campos
+string GetFieldName(int fieldNumber)
+{
+    return fieldNumber switch
+    {
+        1 => "especie",
+        2 => "ID",
+        3 => "edad",
+        4 => "descripción física",
+        5 => "descripción de personalidad",
+        6 => "apodo",
+        _ => "campo desconocido"
+    };
+}
