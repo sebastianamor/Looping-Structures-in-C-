@@ -1,61 +1,85 @@
-﻿string[,] ourAnimals = new string[8, 6]; // 8 mascotas, 6 atributos cada una
+﻿// the ourAnimals array will store the following: 
+string animalSpecies = "";
+string animalID = "";
+string animalAge = "";
+string animalPhysicalDescription = "";
+string animalPersonalityDescription = "";
+string animalNickname = "";
+
+// variables that support data entry
 int maxPets = 8;
+string? readResult;
 string menuSelection = "";
 
-// Inicialización de datos de ejemplo (opcional)
- for (int i = 0; i < maxPets; i++)
-{
-      // Solo inicializamos 4 mascotas como en tu ejemplo
+// array used to store runtime data, there is no persisted data
+string[,] ourAnimals = new string[maxPets, 6];
 
-    ourAnimals[i, 0] = "Perro"; // Especie
-    ourAnimals[i, 1] = $"ID{i}"; // ID
-    ourAnimals[i, 2] = $"{i+1} años"; // Edad
-    ourAnimals[i, 3] = "Descripción física"; // Desc. física
-    ourAnimals[i, 4] = "Descripción personalidad"; // Desc. personalidad
-    ourAnimals[i, 5] = $"Mascota{i}"; // Apodo
-}
+string[][] jaggedArray = new string[][]
+{
+    new string[] { "one1", "two1", "three1", "four1", "five1", "six1" },
+    new string[] { "one2", "two2", "three2", "four2", "five2", "six2" },
+    new string[] { "one3", "two3", "three3", "four3", "five3", "six3" },
+    new string[] { "one4", "two4", "three4", "four4", "five4", "six4" },
+    new string[] { "one5", "two5", "three5", "four5", "five5", "six5" },
+    new string[] { "one6", "two6", "three6", "four6", "five6", "six6" },
+    new string[] { "one7", "two7", "three7", "four7", "five7", "six7" },
+    new string[] { "one8", "two8", "three8", "four8", "five8", "six8" }
+};
 
 do
 {
-    Console.WriteLine("\nMenú Principal:");
-    Console.WriteLine("1. Ver/Editar animal");
-    Console.WriteLine("2. Salir");
-    Console.Write("Seleccione una opción: ");
-    
-    menuSelection = Console.ReadLine()?.Trim().ToLower(); // Normalizar entrada
 
-    switch (menuSelection)
-    {
-        case "1":
-    // List all of our current pet information
-    Console.WriteLine("this app feature is coming soon - please check back to see progress.");
+switch (menuSelection)
+{
+    case "1":
+        // List all of our current pet information
+        Console.WriteLine("this app feature is coming soon - please check back to see progress.");
+        Console.WriteLine("Press the Enter key to continue.");
+        readResult = Console.ReadLine();
+        break;
+
+    case "2":
+        // List all of our current pet information
+        Console.WriteLine("this app feature is coming soon - please check back to see progress.");
+        Console.WriteLine("Press the Enter key to continue.");
+        readResult = Console.ReadLine();
+        break;
+
+       case "3":
+       Console.WriteLine("Challenge Project - please check back soon to see progress.");
+       Console.WriteLine("Press the Enter key to continue.");
+       readResult = Console.ReadLine();
+
+        break;
+
+    case "4":
+    Console.WriteLine("UNDER CONSTRUCTION - please check back next month to see progress.");
     Console.WriteLine("Press the Enter key to continue.");
     readResult = Console.ReadLine();
-    break;
-            
-        case "2":
-        case "exit":
-            Console.WriteLine("Saliendo del programa...");
-            break;
-            
-        default:
-            Console.WriteLine("Opción no válida. Por favor seleccione 1 o 2.");
-            break;
-    }
-    
-} while (menuSelection != "2" && menuSelection != "exit");
 
-// Función auxiliar para nombres de campos
-string GetFieldName(int fieldNumber)
+        break;
+
+     default:
+        break;
+      }
+
+
+
+          }
+
+// Inicialización de datos de ejemplo (opcional)
+ for (int i = 0; i < maxPets; i++) {
+
+foreach (string[] array in jaggedArray)
 {
-    return fieldNumber switch
+    foreach (string value in array)
     {
-        1 => "especie",
-        2 => "ID",
-        3 => "edad",
-        4 => "descripción física",
-        5 => "descripción de personalidad",
-        6 => "apodo",
-        _ => "campo desconocido"
-    };
+        Console.WriteLine(value);
+    }
+    Console.WriteLine();
 }
+
+// pause code execution
+readResult = Console.ReadLine();
+
+} while (menuSelection != "exit");
