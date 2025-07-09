@@ -29,6 +29,13 @@ string[][] jaggedArray = new string[][]
 do
 {
 
+for (int i = 0; i < maxPets; i++) {
+
+
+if (ourAnimals[i, 0] != "ID #: ")
+    {
+        Console.WriteLine(ourAnimals[i, 0]);
+
 switch (menuSelection)
 {
     case "1":
@@ -62,24 +69,13 @@ switch (menuSelection)
      default:
         break;
       }
+         }
+         }
 
-
-
-          }
+          } while (menuSelection != "exit");
 
 // Inicialización de datos de ejemplo (opcional)
- for (int i = 0; i < maxPets; i++) {
 
-foreach (string[] array in jaggedArray)
-{
-    foreach (string value in array)
-    {
-        Console.WriteLine(value);
-    }
-    Console.WriteLine();
-}
 
-// pause code execution
-readResult = Console.ReadLine();
 
-} while (menuSelection != "exit");
+
