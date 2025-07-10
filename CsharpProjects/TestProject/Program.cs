@@ -33,47 +33,51 @@ do
         if (ourAnimals[i, 0] != "ID #: ")
         {
             Console.WriteLine(ourAnimals[i, 0]);
-
-            switch (menuSelection)
+            for (int j = 0; j < 6; j++)
             {
-                case "1":
-                    // List all of our current pet information
-                    Console.WriteLine(
-                        "this app feature is coming soon - please check back to see progress."
-                    );
-                    Console.WriteLine("Press the Enter key to continue.");
-                    readResult = Console.ReadLine();
-                    break;
+                Console.WriteLine(ourAnimals[i, j]);
 
-                case "2":
-                    // List all of our current pet information
-                    Console.WriteLine(
-                        "this app feature is coming soon - please check back to see progress."
-                    );
-                    Console.WriteLine("Press the Enter key to continue.");
-                    readResult = Console.ReadLine();
-                    break;
+                switch (menuSelection)
+                {
+                    case "1":
+                        // List all of our current pet information
+                        Console.WriteLine(
+                            "this app feature is coming soon - please check back to see progress."
+                        );
+                        Console.WriteLine("Press the Enter key to continue.");
+                        readResult = Console.ReadLine();
+                        break;
 
-                case "3":
-                    Console.WriteLine(
-                        "Challenge Project - please check back soon to see progress."
-                    );
-                    Console.WriteLine("Press the Enter key to continue.");
-                    readResult = Console.ReadLine();
+                    case "2":
+                        // List all of our current pet information
+                        Console.WriteLine(
+                            "this app feature is coming soon - please check back to see progress."
+                        );
+                        Console.WriteLine("Press the Enter key to continue.");
+                        readResult = Console.ReadLine();
+                        break;
 
-                    break;
+                    case "3":
+                        Console.WriteLine(
+                            "Challenge Project - please check back soon to see progress."
+                        );
+                        Console.WriteLine("Press the Enter key to continue.");
+                        readResult = Console.ReadLine();
 
-                case "4":
-                    Console.WriteLine(
-                        "UNDER CONSTRUCTION - please check back next month to see progress."
-                    );
-                    Console.WriteLine("Press the Enter key to continue.");
-                    readResult = Console.ReadLine();
+                        break;
 
-                    break;
+                    case "4":
+                        Console.WriteLine(
+                            "UNDER CONSTRUCTION - please check back next month to see progress."
+                        );
+                        Console.WriteLine("Press the Enter key to continue.");
+                        readResult = Console.ReadLine();
 
-                default:
-                    break;
+                        break;
+
+                    default:
+                        break;
+                }
             }
         }
     }
