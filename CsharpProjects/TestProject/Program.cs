@@ -1,6 +1,8 @@
 ﻿// Datos de mascotas
 const int maxPets = 8;
 string[,] ourAnimals = new string[maxPets, 6];
+string anotherPet = "y";
+int petCount = 0;
 
 // Inicializar array con datos de ejemplo
 for (int i = 0; i < 4; i++) // Solo inicializamos 4 mascotas como ejemplo
@@ -32,8 +34,9 @@ do
             Console.WriteLine("\nListado de Mascotas:");
             for (int i = 0; i < maxPets; i++)
             {
-                if (!string.IsNullOrEmpty(ourAnimals[i, 0])) // Solo mostrar mascotas con datos
-                {
+                if (ourAnimals[i, 0] != "ID #: ")
+                  {  petCount += 1;
+
                     Console.WriteLine($"\nMascota {i}:");
                     Console.WriteLine($"ID: {ourAnimals[i, 0]}");
                     Console.WriteLine($"Especie: {ourAnimals[i, 1]}");
