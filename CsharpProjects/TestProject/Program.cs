@@ -34,6 +34,9 @@ do
             Console.WriteLine("\nListado de Mascotas:");
             for (int i = 0; i < maxPets; i++)
             {
+                if (petCount < maxPets)
+                 {
+                   Console.WriteLine($"We currently have {petCount} pets that need homes. We can manage {(maxPets - petCount)} more."); 
                 if (ourAnimals[i, 0] != "ID #: ")
                   {  petCount += 1;
 
@@ -45,7 +48,9 @@ do
                     Console.WriteLine($"Personalidad: {ourAnimals[i, 4]}");
                     Console.WriteLine($"Apodo: {ourAnimals[i, 5]}");
                 }
-            }
+              } 
+             }
+        
             Console.WriteLine("\nPresione Enter para continuar...");
             Console.ReadLine();
             break;
