@@ -29,59 +29,73 @@ do
     menuSelection = Console.ReadLine()?.Trim().ToLower();
 
     switch (menuSelection)
-    {
-        case "1":
-            Console.WriteLine("\nListado de Mascotas:");
-            for (int i = 0; i < maxPets; i++)
+{
+    case "1":
+        Console.WriteLine("\nListado de Mascotas:");
+        // Mostrar todas las mascotas existentes
+        for (int i = 0; i < maxPets; i++)
+        {
+            if (!string.IsNullOrEmpty(ourAnimals[i, 0]))
             {
-                if (petCount < maxPets)
-                 {
-                   Console.WriteLine($"We currently have {petCount} pets that need homes. We can manage {(maxPets - petCount)} more."); 
-                if (ourAnimals[i, 0] != "ID #: ")
-                  {  petCount += 1;
-
-                    Console.WriteLine($"\nMascota {i}:");
-                    Console.WriteLine($"ID: {ourAnimals[i, 0]}");
-                    Console.WriteLine($"Especie: {ourAnimals[i, 1]}");
-                    Console.WriteLine($"Edad: {ourAnimals[i, 2]}");
-                    Console.WriteLine($"Descripción física: {ourAnimals[i, 3]}");
-                    Console.WriteLine($"Personalidad: {ourAnimals[i, 4]}");
-                    Console.WriteLine($"Apodo: {ourAnimals[i, 5]}");
-                }
-              } 
-             }
+                Console.WriteLine($"\nMascota {i}:");
+                Console.WriteLine($"ID: {ourAnimals[i, 0]}");
+                Console.WriteLine($"Especie: {ourAnimals[i, 1]}");
+                Console.WriteLine($"Edad: {ourAnimals[i, 2]}");
+                Console.WriteLine($"Descripción física: {ourAnimals[i, 3]}");
+                Console.WriteLine($"Personalidad: {ourAnimals[i, 4]}");
+                Console.WriteLine($"Apodo: {ourAnimals[i, 5]}");
+            }
+        }
+        Console.WriteLine("\nPresione Enter para continuar...");
+        Console.ReadLine();
+        break;
         
-            Console.WriteLine("\nPresione Enter para continuar...");
-            Console.ReadLine();
-            break;
+    case "2":
+        // Agregar nueva mascota
+        int petCount = 0;
+        for (int i = 0; i < maxPets; i++)
+        {
+            if (!string.IsNullOrEmpty(ourAnimals[i, 0]))
+            {
+                petCount++;
+            }
+        }
 
-        case "2":
-            // Lógica para agregar nueva mascota
-            Console.WriteLine("\nFunción en desarrollo - próximamente");
-            Console.WriteLine("Presione Enter para continuar...");
-            Console.ReadLine();
-            break;
+        if (petCount < maxPets)
+        {
+            Console.WriteLine($"Actualmente tenemos {petCount} mascotas. Podemos aceptar {(maxPets - petCount)} más.");
+            
+            // Aquí iría el código para recolectar los datos de la nueva mascota
+            Console.WriteLine("\nPor favor ingrese los datos de la nueva mascota:");
+            // ... (código para ingresar cada campo)
+        }
+        else
+        {
+            Console.WriteLine("¡Hemos alcanzado el límite máximo de mascotas!");
+        }
+        
+        Console.WriteLine("Presione Enter para continuar.");
+        Console.ReadLine();
+        break;
 
-        case "3":
-            // Lógica para editar mascota
-            Console.WriteLine("\nFunción en desarrollo - próximamente");
-            Console.WriteLine("Presione Enter para continuar...");
-            Console.ReadLine();
-            break;
+    case "3":
+        Console.WriteLine("\nFunción en desarrollo - próximamente");
+        Console.WriteLine("Presione Enter para continuar...");
+        Console.ReadLine();
+        break;
 
-        case "4":
-            // Lógica para buscar mascotas
-            Console.WriteLine("\nFunción en desarrollo - próximamente");
-            Console.WriteLine("Presione Enter para continuar...");
-            Console.ReadLine();
-            break;
+    case "4":
+        Console.WriteLine("\nFunción en desarrollo - próximamente");
+        Console.WriteLine("Presione Enter para continuar...");
+        Console.ReadLine();
+        break;
 
-        case "exit":
-            Console.WriteLine("\nSaliendo del programa...");
-            break;
+    case "exit":
+        Console.WriteLine("\nSaliendo del programa...");
+        break;
 
-        default:
-            Console.WriteLine("\nOpción no válida. Por favor intente nuevamente.");
-            break;
-    }
+    default:
+        Console.WriteLine("\nOpción no válida. Por favor intente nuevamente.");
+        break;
+}  } 
 } while (menuSelection != "exit");
