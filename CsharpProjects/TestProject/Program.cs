@@ -92,6 +92,28 @@ do
                     
                     Console.WriteLine("\n¡Mascota agregada exitosamente!");
                 }
+            }while (anotherPet == "y" && petCount < maxPets)
+            {
+                 // increment petCount (the array is zero-based, so we increment the counter after adding to the array)
+                petCount = petCount + 1;
+                // check maxPet limit
+                if (petCount < maxPets)
+                 {
+                    // another pet?
+                   Console.WriteLine("Do you want to enter info for another pet (y/n)");
+                 }
+                 do
+                 {
+                  readResult = Console.ReadLine();
+                  if (readResult != null)
+                {
+                anotherPet = readResult.ToLower();
+                }
+
+                } while (anotherPet != "y" && anotherPet != "n");
+
+
+
             }
             else
             {
