@@ -1,4 +1,6 @@
-﻿// Datos de mascotas
+﻿bool validEntry = false;
+
+// Datos de mascotas
 const int maxPets = 8;
 string[,] ourAnimals = new string[maxPets, 6];
 
