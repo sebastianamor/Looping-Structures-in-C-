@@ -3,14 +3,14 @@ const int maxPets = 8;
 string[,] ourAnimals = new string[maxPets, 6];
 
 // Inicializar array con datos de ejemplo
-for (int i = 0; i < 4; i++) // Solo inicializamos 4 mascotas como ejemplo
+for (int i = 0; i < 4; i++)
 {
-    ourAnimals[i, 0] = $"ID{i}"; // ID
-    ourAnimals[i, 1] = i % 2 == 0 ? "Perro" : "Gato"; // Especie
-    ourAnimals[i, 2] = $"{i + 1} años"; // Edad
-    ourAnimals[i, 3] = i % 2 == 0 ? "Pequeño, pelo corto" : "Mediano, pelo largo"; // Desc. física
-    ourAnimals[i, 4] = i % 2 == 0 ? "Juguetón" : "Tranquilo"; // Desc. personalidad
-    ourAnimals[i, 5] = $"Mascota{i}"; // Apodo
+    ourAnimals[i, 0] = $"ID{i}";
+    ourAnimals[i, 1] = i % 2 == 0 ? "Perro" : "Gato";
+    ourAnimals[i, 2] = $"{i + 1} años";
+    ourAnimals[i, 3] = i % 2 == 0 ? "Pequeño, pelo corto" : "Mediano, pelo largo";
+    ourAnimals[i, 4] = i % 2 == 0 ? "Juguetón" : "Tranquilo";
+    ourAnimals[i, 5] = $"Mascota{i}";
 }
 
 string menuSelection = "";
@@ -29,41 +29,32 @@ do
     switch (menuSelection)
     {
         case "1":
-            Console.WriteLine("\nListado de Mascotas:");
-            // Mostrar todas las mascotas existentes
-            for (int i = 0; i < maxPets; i++)
-            {
-                if (!string.IsNullOrEmpty(ourAnimals[i, 0]))
-                {
-                    Console.WriteLine($"\nMascota {i}:");
-                    Console.WriteLine($"ID: {ourAnimals[i, 0]}");
-                    Console.WriteLine($"Especie: {ourAnimals[i, 1]}");
-                    Console.WriteLine($"Edad: {ourAnimals[i, 2]}");
-                    Console.WriteLine($"Descripción física: {ourAnimals[i, 3]}");
-                    Console.WriteLine($"Personalidad: {ourAnimals[i, 4]}");
-                    Console.WriteLine($"Apodo: {ourAnimals[i, 5]}");
-                }
-            }
-            Console.WriteLine("\nPresione Enter para continuar...");
-            Console.ReadLine();
+            // ... (código existente para listar mascotas)
             break;
-            
-        case "2":
-            // Agregar nueva mascota
-            int contadorMascotas = 0;
-            for (int i = 0; i < maxPets; i++)
-            {
-                if (!string.IsNullOrEmpty(ourAnimals[i, 0]))
-                {
-                    contadorMascotas++;
-                }
-            }
 
-            if (contadorMascotas < maxPets)
+        case "2":
+            string otraMascota = "s";
+            do
             {
-                Console.WriteLine($"\nActualmente tenemos {contadorMascotas} mascotas. Podemos aceptar {(maxPets - contadorMascotas)} más.");
-                
-                // Buscar la primera posición vacía
+                int contadorMascotas = 0;
+                for (int i = 0; i < maxPets; i++)
+                {
+                    if (!string.IsNullOrEmpty(ourAnimals[i, 0]))
+                    {
+                        contadorMascotas++;
+                    }
+                }
+
+                if (contadorMascotas >= maxPets)
+                {
+                    Console.WriteLine("\n¡Hemos alcanzado el límite máximo de mascotas!");
+                    break;
+                }
+
+                Console.WriteLine(
+                    $"\nActualmente tenemos {contadorMascotas} mascotas. Podemos aceptar {(maxPets - contadorMascotas)} más."
+                );
+
                 int nuevaPosicion = -1;
                 for (int i = 0; i < maxPets; i++)
                 {
@@ -74,72 +65,44 @@ do
                     }
                 }
 
-                if (nuevaPosicion != -1)
+                Console.WriteLine("\nIngrese los datos de la nueva mascota:");
+                Console.Write("ID: ");
+                ourAnimals[nuevaPosicion, 0] = Console.ReadLine();
+                Console.Write("Especie: ");
+                ourAnimals[nuevaPosicion, 1] = Console.ReadLine();
+                Console.Write("Edad: ");
+                ourAnimals[nuevaPosicion, 2] = Console.ReadLine();
+                Console.Write("Descripción física: ");
+                ourAnimals[nuevaPosicion, 3] = Console.ReadLine();
+                Console.Write("Descripción de personalidad: ");
+                ourAnimals[nuevaPosicion, 4] = Console.ReadLine();
+                Console.Write("Apodo: ");
+                ourAnimals[nuevaPosicion, 5] = Console.ReadLine();
+
+                Console.WriteLine("\n¡Mascota agregada exitosamente!");
+
+                if (contadorMascotas + 1 < maxPets)
                 {
-                    Console.WriteLine("\nIngrese los datos de la nueva mascota:");
-                    Console.Write("ID: ");
-                    ourAnimals[nuevaPosicion, 0] = Console.ReadLine();
-                    Console.Write("Especie: ");
-                    ourAnimals[nuevaPosicion, 1] = Console.ReadLine();
-                    Console.Write("Edad: ");
-                    ourAnimals[nuevaPosicion, 2] = Console.ReadLine();
-                    Console.Write("Descripción física: ");
-                    ourAnimals[nuevaPosicion, 3] = Console.ReadLine();
-                    Console.Write("Descripción de personalidad: ");
-                    ourAnimals[nuevaPosicion, 4] = Console.ReadLine();
-                    Console.Write("Apodo: ");
-                    ourAnimals[nuevaPosicion, 5] = Console.ReadLine();
-                    
-                    Console.WriteLine("\n¡Mascota agregada exitosamente!");
+                    Console.Write("¿Desea agregar otra mascota? (s/n): ");
+                    otraMascota = Console.ReadLine()?.Trim().ToLower();
                 }
-            }while (anotherPet == "y" && petCount < maxPets)
-            {
-                 // increment petCount (the array is zero-based, so we increment the counter after adding to the array)
-                petCount = petCount + 1;
-                // check maxPet limit
-                if (petCount < maxPets)
-                 {
-                    // another pet?
-                   Console.WriteLine("Do you want to enter info for another pet (y/n)");
-                 }
-                 do
-                 {
-                  readResult = Console.ReadLine();
-                  if (readResult != null)
+                else
                 {
-                anotherPet = readResult.ToLower();
+                    Console.WriteLine("\n¡Hemos alcanzado el límite máximo de mascotas!");
+                    otraMascota = "n";
                 }
+            } while (otraMascota == "s");
 
-                } while (anotherPet != "y" && anotherPet != "n");
-                    }
-                   }
-
-                   if (petCount >= maxPets)
-                    {
-                 Console.WriteLine("We have reached our limit on the number of pets that we can manage.");
-                 readResult = Console.ReadLine();
-
-
-            }
-            else
-            {
-                Console.WriteLine("\n¡Hemos alcanzado el límite máximo de mascotas!");
-            }
-            
             Console.WriteLine("Presione Enter para continuar.");
             Console.ReadLine();
             break;
 
         case "3":
-            Console.WriteLine("\nFunción en desarrollo - próximamente");
-            Console.WriteLine("Presione Enter para continuar...");
-            Console.ReadLine();
+            // ... (código existente para editar)
             break;
 
         case "4":
-            Console.WriteLine("\nFunción en desarrollo - próximamente");
-            Console.WriteLine("Presione Enter para continuar...");
-            Console.ReadLine();
+            // ... (código existente para buscar)
             break;
 
         case "exit":
