@@ -29,19 +29,41 @@ do
     switch (menuSelection)
     {
         case "1":
-            // ... (código existente para listar mascotas)
+            Console.WriteLine("\nListado de Mascotas:");
+            for (int i = 0; i < maxPets; i++)
+            {
+                if (!string.IsNullOrEmpty(ourAnimals[i, 0]))
+                {
+                    Console.WriteLine($"\nMascota {i}:");
+                    Console.WriteLine($"ID: {ourAnimals[i, 0]}");
+                    Console.WriteLine($"Especie: {ourAnimals[i, 1]}");
+                    Console.WriteLine($"Edad: {ourAnimals[i, 2]}");
+                    Console.WriteLine($"Descripción física: {ourAnimals[i, 3]}");
+                    Console.WriteLine($"Personalidad: {ourAnimals[i, 4]}");
+                    Console.WriteLine($"Apodo: {ourAnimals[i, 5]}");
+                }
+            }
+            Console.WriteLine("\nPresione Enter para continuar...");
+            Console.ReadLine();
             break;
 
         case "2":
-            string otraMascota = "s";
+            string otraMascota;
             do
             {
                 int contadorMascotas = 0;
+                int nuevaPosicion = -1;
+
+                // Contar mascotas y encontrar posición vacía
                 for (int i = 0; i < maxPets; i++)
                 {
                     if (!string.IsNullOrEmpty(ourAnimals[i, 0]))
                     {
                         contadorMascotas++;
+                    }
+                    else if (nuevaPosicion == -1)
+                    {
+                        nuevaPosicion = i;
                     }
                 }
 
@@ -55,27 +77,34 @@ do
                     $"\nActualmente tenemos {contadorMascotas} mascotas. Podemos aceptar {(maxPets - contadorMascotas)} más."
                 );
 
-                int nuevaPosicion = -1;
-                for (int i = 0; i < maxPets; i++)
+                // Validar especie (perro o gato)
+                string animalSpecies;
+                bool validEntry;
+                do
                 {
-                    if (string.IsNullOrEmpty(ourAnimals[i, 0]))
+                    Console.Write("\nIngrese especie (perro/gato): ");
+                    animalSpecies = Console.ReadLine()?.Trim().ToLower();
+                    validEntry = animalSpecies == "perro" || animalSpecies == "gato";
+                    if (!validEntry)
                     {
-                        nuevaPosicion = i;
-                        break;
+                        Console.WriteLine("Especie no válida. Por favor ingrese 'perro' o 'gato'.");
                     }
-                }
+                } while (!validEntry);
 
+                // Ingresar datos de la mascota
                 Console.WriteLine("\nIngrese los datos de la nueva mascota:");
-                Console.Write("ID: ");
-                ourAnimals[nuevaPosicion, 0] = Console.ReadLine();
-                Console.Write("Especie: ");
-                ourAnimals[nuevaPosicion, 1] = Console.ReadLine();
+                ourAnimals[nuevaPosicion, 0] = $"ID{nuevaPosicion}";
+                ourAnimals[nuevaPosicion, 1] = animalSpecies;
+
                 Console.Write("Edad: ");
                 ourAnimals[nuevaPosicion, 2] = Console.ReadLine();
+
                 Console.Write("Descripción física: ");
                 ourAnimals[nuevaPosicion, 3] = Console.ReadLine();
+
                 Console.Write("Descripción de personalidad: ");
                 ourAnimals[nuevaPosicion, 4] = Console.ReadLine();
+
                 Console.Write("Apodo: ");
                 ourAnimals[nuevaPosicion, 5] = Console.ReadLine();
 
@@ -83,7 +112,7 @@ do
 
                 if (contadorMascotas + 1 < maxPets)
                 {
-                    Console.Write("¿Desea agregar otra mascota? (s/n): ");
+                    Console.Write("\n¿Desea agregar otra mascota? (s/n): ");
                     otraMascota = Console.ReadLine()?.Trim().ToLower();
                 }
                 else
@@ -92,36 +121,21 @@ do
                     otraMascota = "n";
                 }
             } while (otraMascota == "s");
-            // get species (cat or dog) - string animalSpecies is a required field 
-do
-{
-    Console.WriteLine("\n\rEnter 'dog' or 'cat' to begin a new entry");
-    readResult = Console.ReadLine();
-    if (readResult != null)
-    {
-        animalSpecies = readResult.ToLower();
-        if (animalSpecies != "dog" && animalSpecies != "cat")
-        {
-            //Console.WriteLine($"You entered: {animalSpecies}.");
-            validEntry = false;
-        }
-        else
-        {
-            validEntry = true;
-        }
-    }
-} while (validEntry == false);
 
-            Console.WriteLine("Presione Enter para continuar.");
+            Console.WriteLine("\nPresione Enter para continuar...");
             Console.ReadLine();
             break;
 
         case "3":
-            // ... (código existente para editar)
+            Console.WriteLine("\nFunción en desarrollo - próximamente");
+            Console.WriteLine("Presione Enter para continuar...");
+            Console.ReadLine();
             break;
 
         case "4":
-            // ... (código existente para buscar)
+            Console.WriteLine("\nFunción en desarrollo - próximamente");
+            Console.WriteLine("Presione Enter para continuar...");
+            Console.ReadLine();
             break;
 
         case "exit":
