@@ -1,6 +1,4 @@
-﻿bool validEntry = false;
-
-// Datos de mascotas
+﻿// Datos de mascotas
 const int maxPets = 8;
 string[,] ourAnimals = new string[maxPets, 6];
 
@@ -94,6 +92,25 @@ do
                     otraMascota = "n";
                 }
             } while (otraMascota == "s");
+            // get species (cat or dog) - string animalSpecies is a required field 
+do
+{
+    Console.WriteLine("\n\rEnter 'dog' or 'cat' to begin a new entry");
+    readResult = Console.ReadLine();
+    if (readResult != null)
+    {
+        animalSpecies = readResult.ToLower();
+        if (animalSpecies != "dog" && animalSpecies != "cat")
+        {
+            //Console.WriteLine($"You entered: {animalSpecies}.");
+            validEntry = false;
+        }
+        else
+        {
+            validEntry = true;
+        }
+    }
+} while (validEntry == false);
 
             Console.WriteLine("Presione Enter para continuar.");
             Console.ReadLine();
