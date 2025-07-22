@@ -1,188 +1,178 @@
-﻿// Datos de mascotas
+﻿// ペットデータ
 const int maxPets = 8;
 string[,] ourAnimals = new string[maxPets, 6];
 
-// Inicializar array con datos de ejemplo
+// サンプルデータで配列を初期化
 for (int i = 0; i < 4; i++)
 {
-    ourAnimals[i, 0] = $"ID{i}";
-    ourAnimals[i, 1] = i % 2 == 0 ? "Perro" : "Gato";
-    ourAnimals[i, 2] = $"{i + 1} años";
-    ourAnimals[i, 3] = i % 2 == 0 ? "Pequeño, pelo corto" : "Mediano, pelo largo";
-    ourAnimals[i, 4] = i % 2 == 0 ? "Juguetón" : "Tranquilo";
-    ourAnimals[i, 5] = $"Mascota{i}";
+    ourAnimals[i, 0] = "ID #: ID" + i;
+    ourAnimals[i, 1] = "種類: " + (i % 2 == 0 ? "犬" : "猫");
+    ourAnimals[i, 2] = "年齢: " + (i + 1) + "歳";
+    ourAnimals[i, 3] = "ニックネーム: ペット" + i;
+    ourAnimals[i, 4] = "外見の特徴: " + (i % 2 == 0 ? "小型、短毛" : "中型、長毛");
+    ourAnimals[i, 5] = "性格: " + (i % 2 == 0 ? "遊び好き" : "穏やか");
 }
 
 string menuSelection = "";
 do
 {
-    Console.WriteLine("\nMenú Principal:");
-    Console.WriteLine("1. Listar todas las mascotas");
-    Console.WriteLine("2. Agregar nueva mascota");
-    Console.WriteLine("3. Editar mascota existente");
-    Console.WriteLine("4. Buscar mascotas");
-    Console.WriteLine("exit - Salir del programa");
-    Console.Write("Seleccione una opción: ");
+    Console.WriteLine("\nメインメニュー:");
+    Console.WriteLine("1. すべてのペットを表示");
+    Console.WriteLine("2. 新しいペットを追加");
+    Console.WriteLine("3. ペット情報を編集");
+    Console.WriteLine("4. ペットを検索");
+    Console.WriteLine("exit - プログラムを終了");
+    Console.Write("選択してください: ");
 
     menuSelection = Console.ReadLine()?.Trim().ToLower();
 
     switch (menuSelection)
     {
         case "1":
-            Console.WriteLine("\nListado de Mascotas:");
+            Console.WriteLine("\nペット一覧:");
             for (int i = 0; i < maxPets; i++)
             {
                 if (!string.IsNullOrEmpty(ourAnimals[i, 0]))
                 {
-                    Console.WriteLine($"\nMascota {i}:");
-                    Console.WriteLine($"ID: {ourAnimals[i, 0]}");
-                    Console.WriteLine($"Especie: {ourAnimals[i, 1]}");
-                    Console.WriteLine($"Edad: {ourAnimals[i, 2]}");
-                    Console.WriteLine($"Descripción física: {ourAnimals[i, 3]}");
-                    Console.WriteLine($"Personalidad: {ourAnimals[i, 4]}");
-                    Console.WriteLine($"Apodo: {ourAnimals[i, 5]}");
+                    Console.WriteLine($"\nペット {i}:");
+                    for (int j = 0; j < 6; j++)
+                    {
+                        Console.WriteLine(ourAnimals[i, j]);
+                    }
                 }
             }
-            Console.WriteLine("\nPresione Enter para continuar...");
+            Console.WriteLine("\n続けるにはEnterキーを押してください...");
             Console.ReadLine();
             break;
 
         case "2":
-            string otraMascota;
+            string もう一度;
             do
             {
-                int contadorMascotas = 0;
-                int nuevaPosicion = -1;
+                int petCount = 0;
+                int 新しい位置 = -1;
 
-                // Contar mascotas y encontrar posición vacía
+                // ペットをカウントして空き位置を探す
                 for (int i = 0; i < maxPets; i++)
                 {
                     if (!string.IsNullOrEmpty(ourAnimals[i, 0]))
                     {
-                        contadorMascotas++;
+                        petCount++;
                     }
-                    else if (nuevaPosicion == -1)
+                    else if (新しい位置 == -1)
                     {
-                        nuevaPosicion = i;
+                        新しい位置 = i;
                     }
                 }
 
-                if (contadorMascotas >= maxPets)
+                if (petCount >= maxPets)
                 {
-                    Console.WriteLine("\n¡Hemos alcanzado el límite máximo de mascotas!");
+                    Console.WriteLine("\n登録可能なペット数の上限に達しました！");
                     break;
                 }
 
                 Console.WriteLine(
-                    $"\nActualmente tenemos {contadorMascotas} mascotas. Podemos aceptar {(maxPets - contadorMascotas)} más."
+                    $"\n現在 {petCount}匹のペットが登録されています。あと{(maxPets - petCount)}匹登録できます。"
                 );
 
-                // Validar especie (perro o gato)
-                string animalSpecies;
-                bool validEntry;
+                // 種類を検証（犬または猫）
+                string 動物の種類;
+                bool 有効な入力;
                 do
                 {
-                    Console.Write("\nIngrese especie (perro/gato): ");
-                    animalSpecies = Console.ReadLine()?.Trim().ToLower();
-                    validEntry = animalSpecies == "perro" || animalSpecies == "gato";
-                    if (!validEntry)
+                    Console.Write("\n種類を入力してください（犬/猫）: ");
+                    動物の種類 = Console.ReadLine()?.Trim().ToLower();
+                    有効な入力 = 動物の種類 == "犬" || 動物の種類 == "猫";
+                    if (!有効な入力)
                     {
-                        Console.WriteLine("Especie no válida. Por favor ingrese 'perro' o 'gato'.");
+                        Console.WriteLine("無効な種類です。'犬'または'猫'を入力してください。");
                     }
-                } while (!validEntry);
+                } while (!有効な入力);
 
-                // Generar ID (P1, P2, G3, etc.)
-                string animalID =
-                    animalSpecies.Substring(0, 1).ToUpper() + (contadorMascotas + 1).ToString();
+                // IDを生成（D1, D2, C3など）
+                string 動物ID = 動物の種類.Substring(0, 1).ToUpper() + (petCount + 1).ToString();
 
-                // Obtener edad (puede ser ? si se desconoce)
-                string animalAge;
+                // 年齢を取得
+                string 動物の年齢;
                 do
                 {
-                    Console.Write("Ingrese la edad de la mascota o ? si se desconoce: ");
-                    animalAge = Console.ReadLine()?.Trim();
-                    if (animalAge != "?")
+                    Console.Write("ペットの年齢を入力してください（不明な場合は?）: ");
+                    動物の年齢 = Console.ReadLine()?.Trim();
+                    if (動物の年齢 != "?")
                     {
-                        validEntry = int.TryParse(animalAge, out _);
-                        if (!validEntry)
+                        有効な入力 = int.TryParse(動物の年齢, out _);
+                        if (!有効な入力)
                         {
-                            Console.WriteLine("Edad no válida. Ingrese un número o ?.");
+                            Console.WriteLine("無効な年齢です。数字または?を入力してください。");
                         }
                     }
                     else
                     {
-                        validEntry = true;
+                        有効な入力 = true;
                     }
-                } while (!validEntry);
+                } while (!有効な入力);
 
-                // Obtener descripción física
-                Console.Write("Descripción física: ");
-                string animalPhysicalDescription = Console.ReadLine()?.Trim();
-                if (string.IsNullOrEmpty(animalPhysicalDescription))
+                // ニックネームを取得
+                Console.Write("ニックネーム: ");
+                string 動物のニックネーム = Console.ReadLine()?.Trim();
+                動物のニックネーム = string.IsNullOrEmpty(動物のニックネーム)
+                    ? "なし"
+                    : 動物のニックネーム;
+
+                // 外見の特徴を取得
+                Console.Write("外見の特徴: ");
+                string 動物の外見 = Console.ReadLine()?.Trim();
+                動物の外見 = string.IsNullOrEmpty(動物の外見) ? "未設定" : 動物の外見;
+
+                // 性格を取得
+                Console.Write("性格: ");
+                string 動物の性格 = Console.ReadLine()?.Trim();
+                動物の性格 = string.IsNullOrEmpty(動物の性格) ? "未設定" : 動物の性格;
+
+                // 情報を指定された形式で保存
+                ourAnimals[新しい位置, 0] = "ID #: " + 動物ID;
+                ourAnimals[新しい位置, 1] = "種類: " + 動物の種類;
+                ourAnimals[新しい位置, 2] = "年齢: " + 動物の年齢;
+                ourAnimals[新しい位置, 3] = "ニックネーム: " + 動物のニックネーム;
+                ourAnimals[新しい位置, 4] = "外見の特徴: " + 動物の外見;
+                ourAnimals[新しい位置, 5] = "性格: " + 動物の性格;
+
+                Console.WriteLine("\nペットが正常に追加されました！");
+
+                if (petCount + 1 < maxPets)
                 {
-                    animalPhysicalDescription = "Por determinar";
-                }
-
-                // Obtener descripción de personalidad
-                Console.Write("Descripción de personalidad (gustos, energía, etc.): ");
-                string animalPersonalityDescription = Console.ReadLine()?.Trim().ToLower();
-                if (string.IsNullOrEmpty(animalPersonalityDescription))
-                {
-                    animalPersonalityDescription = "Por determinar";
-                }
-
-                // Obtener apodo
-                Console.Write("Apodo: ");
-                string animalNickname = Console.ReadLine()?.Trim();
-                if (string.IsNullOrEmpty(animalNickname))
-                {
-                    animalNickname = "Sin apodo";
-                }
-
-                // Guardar todos los datos
-                ourAnimals[nuevaPosicion, 0] = animalID;
-                ourAnimals[nuevaPosicion, 1] = animalSpecies;
-                ourAnimals[nuevaPosicion, 2] = animalAge;
-                ourAnimals[nuevaPosicion, 3] = animalPhysicalDescription;
-                ourAnimals[nuevaPosicion, 4] = animalPersonalityDescription;
-                ourAnimals[nuevaPosicion, 5] = animalNickname;
-
-                Console.WriteLine("\n¡Mascota agregada exitosamente!");
-
-                if (contadorMascotas + 1 < maxPets)
-                {
-                    Console.Write("\n¿Desea agregar otra mascota? (s/n): ");
-                    otraMascota = Console.ReadLine()?.Trim().ToLower();
+                    Console.Write("\n別のペットを追加しますか？（はい/いいえ）: ");
+                    もう一度 = Console.ReadLine()?.Trim().ToLower();
                 }
                 else
                 {
-                    Console.WriteLine("\n¡Hemos alcanzado el límite máximo de mascotas!");
-                    otraMascota = "n";
+                    Console.WriteLine("\n登録可能なペット数の上限に達しました！");
+                    もう一度 = "いいえ";
                 }
-            } while (otraMascota == "s");
+            } while (もう一度 == "はい");
 
-            Console.WriteLine("\nPresione Enter para continuar...");
+            Console.WriteLine("\n続けるにはEnterキーを押してください...");
             Console.ReadLine();
             break;
 
         case "3":
-            Console.WriteLine("\nFunción en desarrollo - próximamente");
-            Console.WriteLine("Presione Enter para continuar...");
+            Console.WriteLine("\nこの機能は現在開発中です - 近日公開予定");
+            Console.WriteLine("続けるにはEnterキーを押してください...");
             Console.ReadLine();
             break;
 
         case "4":
-            Console.WriteLine("\nFunción en desarrollo - próximamente");
-            Console.WriteLine("Presione Enter para continuar...");
+            Console.WriteLine("\nこの機能は現在開発中です - 近日公開予定");
+            Console.WriteLine("続けるにはEnterキーを押してください...");
             Console.ReadLine();
             break;
 
         case "exit":
-            Console.WriteLine("\nSaliendo del programa...");
+            Console.WriteLine("\nプログラムを終了します...");
             break;
 
         default:
-            Console.WriteLine("\nOpción no válida. Por favor intente nuevamente.");
+            Console.WriteLine("\n無効な選択です。もう一度試してください。");
             break;
     }
 } while (menuSelection != "exit");
