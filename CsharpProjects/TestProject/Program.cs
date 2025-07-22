@@ -91,22 +91,61 @@ do
                     }
                 } while (!validEntry);
 
-                // Ingresar datos de la mascota
-                Console.WriteLine("\nIngrese los datos de la nueva mascota:");
-                ourAnimals[nuevaPosicion, 0] = $"ID{nuevaPosicion}";
-                ourAnimals[nuevaPosicion, 1] = animalSpecies;
+                // Generar ID (P1, P2, G3, etc.)
+                string animalID =
+                    animalSpecies.Substring(0, 1).ToUpper() + (contadorMascotas + 1).ToString();
 
-                Console.Write("Edad: ");
-                ourAnimals[nuevaPosicion, 2] = Console.ReadLine();
+                // Obtener edad (puede ser ? si se desconoce)
+                string animalAge;
+                do
+                {
+                    Console.Write("Ingrese la edad de la mascota o ? si se desconoce: ");
+                    animalAge = Console.ReadLine()?.Trim();
+                    if (animalAge != "?")
+                    {
+                        validEntry = int.TryParse(animalAge, out _);
+                        if (!validEntry)
+                        {
+                            Console.WriteLine("Edad no válida. Ingrese un número o ?.");
+                        }
+                    }
+                    else
+                    {
+                        validEntry = true;
+                    }
+                } while (!validEntry);
 
+                // Obtener descripción física
                 Console.Write("Descripción física: ");
-                ourAnimals[nuevaPosicion, 3] = Console.ReadLine();
+                string animalPhysicalDescription = Console.ReadLine()?.Trim();
+                if (string.IsNullOrEmpty(animalPhysicalDescription))
+                {
+                    animalPhysicalDescription = "Por determinar";
+                }
 
-                Console.Write("Descripción de personalidad: ");
-                ourAnimals[nuevaPosicion, 4] = Console.ReadLine();
+                // Obtener descripción de personalidad
+                Console.Write("Descripción de personalidad (gustos, energía, etc.): ");
+                string animalPersonalityDescription = Console.ReadLine()?.Trim().ToLower();
+                if (string.IsNullOrEmpty(animalPersonalityDescription))
+                {
+                    animalPersonalityDescription = "Por determinar";
+                }
 
+                // Obtener apodo
                 Console.Write("Apodo: ");
-                ourAnimals[nuevaPosicion, 5] = Console.ReadLine();
+                string animalNickname = Console.ReadLine()?.Trim();
+                if (string.IsNullOrEmpty(animalNickname))
+                {
+                    animalNickname = "Sin apodo";
+                }
+
+                // Guardar todos los datos
+                ourAnimals[nuevaPosicion, 0] = animalID;
+                ourAnimals[nuevaPosicion, 1] = animalSpecies;
+                ourAnimals[nuevaPosicion, 2] = animalAge;
+                ourAnimals[nuevaPosicion, 3] = animalPhysicalDescription;
+                ourAnimals[nuevaPosicion, 4] = animalPersonalityDescription;
+                ourAnimals[nuevaPosicion, 5] = animalNickname;
 
                 Console.WriteLine("\n¡Mascota agregada exitosamente!");
 
@@ -121,27 +160,7 @@ do
                     otraMascota = "n";
                 }
             } while (otraMascota == "s");
-            // build the animal the ID number - for example C1, C2, D3 (for Cat 1, Cat 2, Dog 3)
-            animalID = animalSpecies.Substring(0, 1) + (petCount + 1).ToString();
-            // get the pet's age. can be ? at initial entry.
-            do
-            {
-                int petAge;
-                Console.WriteLine("Enter the pet's age or enter ? if unknown");
-                readResult = Console.ReadLine();
-                if (readResult != null)
-                {
-                    animalAge = readResult;
-                    if (animalAge != "?")
-                    {
-                        validEntry = int.TryParse(animalAge, out petAge);
-                    }
-                    else
-                    {
-                        validEntry = true;
-                    }
-                }
-            } while (validEntry == false);
+
             Console.WriteLine("\nPresione Enter para continuar...");
             Console.ReadLine();
             break;
